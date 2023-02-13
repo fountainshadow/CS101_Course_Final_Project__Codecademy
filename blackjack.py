@@ -17,27 +17,38 @@ user_sum = 0
 for i in user_cards:
     user_sum += i
 print(f"You current total is: {user_sum} out of 21")
-decision = input("Would you like another card? Y/N: ")
 
-# Stick or Twist
-def draw_card(decision):
+# FUNCTIONS
+# Another Card
+def decision():
+    decision = input("Would you like another card? Y/N: ")
     if decision == 'Y':
-        user_cards.extend(sample(cards, 1))
-        print(f"You currently hold the cards: {user_cards}")
-        user_sum = 0
-        for i in user_cards:
-            user_sum += i
-        print(f"You current total is: {user_sum} out of 21")
+        draw_card(decision)
     elif decision == 'N':
-        print(f"You have stuck with the cards: {user_cards}")
-    else:
-        print("Error.")
-
-def bust(decision):
+        draw_card(decision)
+# Bust
+def bust(choice):
     user_sum = 0
     if user_sum > 21:
         print("You have gone BUST! The banker has won...")
     elif user_sum <= 21:
         draw_card()
 
-draw_card(decision)
+# Stick or Twist
+def draw_card(choice):
+    if choice == 'Y':
+        user_cards.extend(sample(cards, 1))
+        print(f"You currently hold the cards: {user_cards}")
+        user_sum = 0
+        for i in user_cards:
+            user_sum += i
+        print(f"You current total is: {user_sum} out of 21")
+        decision()
+    elif choice == 'N':
+        print(f"You have stuck with the cards: {user_cards}")
+    else:
+        print("Error.")
+
+choice = decision()
+print(choice)
+draw_card(choice)
