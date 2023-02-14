@@ -35,7 +35,7 @@ def dealer(dealer_cards):
     print(f"The Dealer's Cards are: {dealer_cards}. Their total is: {sum(dealer_cards)}.")
     if (sum(dealer_cards) >= sum(user_cards)) and (sum(dealer_cards) <= 21):
         print("THE DEALER HAS WON!")
-    elif (sum(user_cards) > sum(dealer_cards)) and (sum(dealer_cards) <= 21):
+    elif (sum(user_cards) > sum(dealer_cards)) and (sum(user_cards) <= 21):
         print("YOU HAVE WON!!")
 
 # Stick With Cards
@@ -47,7 +47,6 @@ def stick():
     print(f"The dealer's starting cards are: {dealer_cards}")
     time.sleep(1)
     dealer(dealer_cards)
-
 
 # -----
 # INTRO
