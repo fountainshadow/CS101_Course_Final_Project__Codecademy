@@ -3,52 +3,44 @@ import random
 from random import sample
 
 # Options from a deck of cards.
-cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-
-# Intro
-print("Welcome to Black Jack! You will be playing against the banker.")
-name = input("What is your name? ")
-print(f"Welcome to the game {name}!")
-
-# Starting Point
-user_cards = sample(cards, 2)
-print(f"Your starting cards are: {user_cards}")
-user_sum = 0
-for i in user_cards:
-    user_sum += i
-print(f"You current total is: {user_sum} out of 21")
+deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+user_cards = sample(deck, 2)
+dealer_cards = sample(deck, 2)
 
 # FUNCTIONS
-# Another Card
-def decision():
-    decision = input("Would you like another card? Y/N: ")
-    if decision == 'Y':
-        draw_card(decision)
-    elif decision == 'N':
-        draw_card(decision)
-# Bust
-def bust(choice):
-    user_sum = 0
-    if user_sum > 21:
-        print("You have gone BUST! The banker has won...")
-    elif user_sum <= 21:
-        draw_card()
+# # Calculate If Bust
+def bust_or_not(user_cards):
+    if sum(user_cards) > 21:
+        print("You have gone BUST! The dealer has won.")
+    elif sum(user_cards) <= 21:
+        choice = input("Would you like another card? Y/N: ")
+        if choice == 'N':
+            stick()
+        else:
+            twist()
+    else: 
+        print('Error in bust or not function')
 
-# Stick or Twist
-def draw_card(choice):
-    if choice == 'Y':
-        user_cards.extend(sample(cards, 1))
-        print(f"You currently hold the cards: {user_cards}")
-        user_sum = 0
-        for i in user_cards:
-            user_sum += i
-        print(f"You current total is: {user_sum} out of 21")
-        decision()
-    elif choice == 'N':
-        print(f"You have stuck with the cards: {user_cards}")
-    else:
-        print("Error.")
+# Draw Again
+def twist():
+    user_cards.extend(sample(deck, 1))
+    print(f"You currently hold the cards: {user_cards}. Your current total is: {sum(user_cards)}.")
+    bust_or_not(user_cards)
 
-choice = decision()
-print(choice)
-draw_card(choice)
+# Stick With Cards
+def stick():
+    print(f"You are currently holding the cards: {user_cards}. Your current total is: {sum(user_cards)}.")
+
+
+# -----
+# INTRO
+print("Welcome to Black Jack! You will be playing against the Dealer.")
+name = input("What is your name? ")
+print(f"WELCOME TO THE GAME {name}!")
+
+# STARTING POINT
+print(f"Your starting cards are: {user_cards}. You current total is: {sum(user_cards)} out of 21.")
+
+bust_or_not(user_cards)
+
+
